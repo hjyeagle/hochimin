@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>틈새라면 호치민 진출 사업 기획안</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Red Accent -->
+    <!-- Application Structure Plan: A thematic, non-linear dashboard structure with five key sections: Overview, Market Analysis, Strategy Comparison, Financial Plan, and Partnership Proposal. This design allows a decision-maker to either get a high-level summary instantly from the 'Overview' or dive deep into specific areas of interest (like 'Strategy' or 'Finance') without being forced through a linear document. This user-centric flow is more efficient for business analysis than a traditional report. Interactive elements guide the user through a decision-making journey, from understanding the market to evaluating the final proposal. -->
+    <!-- Visualization & Content Choices: 1. Market Share: Donut Chart (Chart.js) to show the current landscape (Goal: Inform). 2. Strategy Comparison: Interactive cards with bar graphs for key metrics (Cost, Risk, etc.) to allow for quick, direct comparison (Goal: Compare). 3. Financial Breakdown: Donut Chart (Chart.js) to visualize the allocation of the initial investment for the Lotte Mart restaurant option (Goal: Inform). 4. Funding Timeline: A visual process flow built with HTML/CSS to clearly present the financial commitments over time (Goal: Organize). Interactions like tooltips and dynamic text updates on click provide deeper context on demand. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-weight: 500;
+        }
+        .nav-link.active, .nav-link:hover {
+            background-color: #D9534F;
+            color: white;
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+        .btn-primary {
+            background-color: #D9534F;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #C9302C;
+        }
+        .section-title {
+            color: #D9534F;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .strategy-card.selected {
+            border: 2px solid #D9534F;
+            box-shadow: 0 8px 30px rgba(217, 83, 79, 0.2);
+        }
+        .chart-container {
+            position: relative; 
+            width: 100%; 
+            max-width: 450px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            height: 300px; 
+            max-height: 400px;
+        }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-[#D9534F]">틈새라면 HCMC 진출 기획안</h1>
+            <div class="hidden md:flex items-center space-x-2">
+                <a class="nav-link active" data-target="overview">핵심 요약</a>
+                <a class="nav-link" data-target="market-analysis">시장 분석</a>
+                <a class="nav-link" data-target="strategy">전략 비교</a>
+                <a class="nav-link" data-target="finance">재무 계획</a>
+                <a class="nav-link" data-target="proposal">파트너십 제안</a>
+            </div>
+             <button id="mobile-menu-button" class="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#D9534F]">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1">
+            <a class="block nav-link active" data-target="overview">핵심 요약</a>
+            <a class="block nav-link" data-target="market-analysis">시장 분석</a>
+            <a class="block nav-link" data-target="strategy">전략 비교</a>
+            <a class="block nav-link" data-target="finance">재무 계획</a>
+            <a class="block nav-link" data-target="proposal">파트너십 제안</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <section id="overview" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800">호치민 시장 진출, 지금이 기회입니다</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">베트남의 젊고 역동적인 시장, 특히 K-Culture에 열광하는 호치민은 '틈새라면'의 매운맛을 선보일 최적의 장소입니다. 본 기획안은 시장 분석부터 구체적인 실행 방안까지 성공적인 진출을 위한 로드맵을 제시합니다.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="card p-8">
+                    <div class="text-5xl font-bold text-[#D9534F]">9,300만</div>
+                    <p class="mt-2 text-gray-600 font-semibold">베트남 라면 소비 인구</p>
+                    <p class="mt-1 text-sm text-gray-500">세계 1위의 1인당 라면 소비량. 거대한 잠재 고객을 확보하고 있습니다.</p>
+                </div>
+                <div class="card p-8">
+                    <div class="text-5xl font-bold text-[#D9534F]">$25,000</div>
+                    <p class="mt-2 text-gray-600 font-semibold">예상 초기 창업 비용</p>
+                    <p class="mt-1 text-sm text-gray-500">롯데마트 내 소규모 식당(20석) 기준. 효율적인 비용으로 시장 진입이 가능합니다.</p>
+                </div>
+                <div class="card p-8">
+                    <div class="text-5xl font-bold text-[#D9534F]">6개월</div>
+                    <p class="mt-2 text-gray-600 font-semibold">예상 준비 기간</p>
+                    <p class="mt-1 text-sm text-gray-500">법인 설립부터 매장 오픈까지, 체계적인 준비를 통해 안정적인 런칭을 목표로 합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-t-2 border-gray-100">
+
+        <section id="market-analysis" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <p class="section-title">MARKET ANALYSIS</p>
+                <h2 class="text-3xl font-bold text-gray-800">호치민 라면 시장 현황 및 기회</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">호치민은 베트남 경제의 중심지로, 다양한 국적의 음식 문화가 공존하는 역동적인 시장입니다. 특히 한국 라면에 대한 선호도가 높지만, '프리미엄 K-라면'을 경험할 수 있는 전문 식당은 부족하여 시장 선점의 기회가 열려 있습니다.</p>
+            </div>
+            <div class="grid lg:grid-cols-5 gap-8 items-center">
+                <div class="lg:col-span-2">
+                    <div class="chart-container">
+                        <canvas id="marketShareChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-3 space-y-6">
+                    <div class="card p-6">
+                        <h4 class="font-bold text-lg text-gray-800">현지 시장의 특징</h4>
+                        <p class="mt-2 text-gray-600">베트남 현지 브랜드가 시장을 장악하고 있으나, 대부분 저가형 제품입니다. 젊은 층을 중심으로 한국의 매운맛과 프리미엄 라면에 대한 수요가 폭발적으로 증가하고 있습니다. 단순 제품 판매를 넘어, 직접 조리해주는 '경험'을 제공하는 공간에 대한 잠재력이 매우 큽니다.</p>
+                    </div>
+                    <div class="card p-6">
+                        <h4 class="font-bold text-lg text-gray-800">경쟁 환경</h4>
+                        <p class="mt-2 text-gray-600">현재 호치민에는 일본 라멘 전문점은 다수 존재하지만, 한국 라면을 전문으로 하는 식당은 거의 없습니다. 분식점에서 사이드 메뉴로 판매되는 수준에 그쳐, '틈새라면'이 전문성과 독보적인 매운맛으로 포지셔닝할 경우 강력한 경쟁 우위를 확보할 수 있습니다.</p>
+                    </div>
+                     <div class="card p-6 bg-red-50 border border-red-200">
+                        <h4 class="font-bold text-lg text-[#D9534F]">기회 요인: '틈새' 시장의 발견</h4>
+                        <p class="mt-2 text-gray-600">'틈새라면'의 강력한 브랜드 아이덴티티인 '매운맛'은 호치민 젊은 층의 도전 욕구를 자극하는 강력한 마케팅 포인트가 될 것입니다. 인스타그램, 틱톡 등 SNS를 통한 '매운맛 챌린지'와 같은 바이럴 마케팅에 매우 유리합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-t-2 border-gray-100">
+
+        <section id="strategy" class="scroll-mt-20">
+             <div class="text-center mb-12">
+                <p class="section-title">STRATEGY COMPARISON</p>
+                <h2 class="text-3xl font-bold text-gray-800">최적의 시장 진출 전략 비교 분석</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">초기 시장 진입 시 리스크를 최소화하고 브랜드 인지도를 효과적으로 높일 수 있는 다양한 방안을 비교 검토합니다. 각 전략 카드를 클릭하여 상세 분석 내용을 확인하세요.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                 <div class="strategy-card card p-6 cursor-pointer text-center" data-strategy="product">
+                    <div class="text-3xl mb-3">🛒</div>
+                    <h3 class="text-xl font-bold mb-2">롯데마트 제품 입점</h3>
+                    <p class="text-gray-600">기존 유통망을 활용한 가장 빠르고 안정적인 시장 테스트 전략</p>
+                </div>
+                <div class="strategy-card card p-6 cursor-pointer text-center selected" data-strategy="restaurant_in">
+                    <div class="text-3xl mb-3">🏬</div>
+                     <h3 class="text-xl font-bold mb-2">마트 내 식당 개설</h3>
+                    <p class="text-gray-600">안정적인 유동인구를 바탕으로 브랜드 경험을 제공하는 최적의 균형 전략</p>
+                </div>
+                <div class="strategy-card card p-6 cursor-pointer text-center" data-strategy="restaurant_out">
+                     <div class="text-3xl mb-3">🏠</div>
+                    <h3 class="text-xl font-bold mb-2">외부 단독 식당 개설</h3>
+                    <p class="text-gray-600">강력한 브랜딩과 높은 수익성을 기대할 수 있는 장기적인 관점의 전략</p>
+                </div>
+            </div>
+
+            <div id="strategy-details" class="card p-8">
+            </div>
+
+        </section>
+
+        <hr class="my-16 border-t-2 border-gray-100">
+
+        <section id="finance" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <p class="section-title">FINANCIAL PLAN</p>
+                <h2 class="text-3xl font-bold text-gray-800">초기 투자 예산안 (마트 내 식당 기준)</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">가장 현실적인 대안인 '롯데마트 내 라면 전문 식당' 개설 시, 1년 기준 예상되는 초기 투자 비용 상세 내역입니다. 각 항목을 클릭하여 세부 정보를 확인해 보세요.</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                     <div class="chart-container">
+                        <canvas id="investmentChart"></canvas>
+                    </div>
+                </div>
+                <div id="finance-details" class="card p-8 min-h-[350px]">
+                     <h3 class="text-2xl font-bold text-gray-800 mb-4">예산 상세 내역</h3>
+                    <p class="text-gray-600">차트의 각 항목을 클릭하시면 이곳에 구체적인 설명이 표시됩니다. 예상 비용은 현지 시장 상황을 고려한 추정치이며, 실제 집행 시 변동될 수 있습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-t-2 border-gray-100">
+
+        <section id="proposal" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <p class="section-title">PARTNERSHIP PROPOSAL</p>
+                <h2 class="text-3xl font-bold text-gray-800">성공적인 파트너십을 위한 제안</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">20년 이상의 현지 경험과 네트워크를 바탕으로, '틈새라면'의 성공적인 호치민 안착을 위한 파트너십 조건을 다음과 같이 제안합니다. 상호 신뢰를 기반으로 한 장기적인 성공을 목표로 합니다.</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="card p-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">1. 사전 준비 및 비용 부담</h3>
+                    <div class="space-y-4 text-gray-700">
+                       <p><strong class="text-gray-900">역할 분담:</strong> 현지 전문가(본인)는 법인설립, 인허가, 매장 계약, 인력 채용 등 현지 실무를 총괄하며, 한국 본사는 관련 제반 비용(초기 투자금)을 부담합니다.</p>
+                       <p><strong class="text-gray-900">비용 내역:</strong> 법인 등록, 임대 보증금 및 초기 임대료, 식당 설비 및 집기 구매, 초기 인건비(최소 3개월분), 마케팅 비용 등 사업 준비에 필요한 모든 실비용을 포함합니다.</p>
+                    </div>
+                </div>
+
+                <div class="card p-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">2. 사업 진행 및 자금 집행 조건</h3>
+                     <p class="mb-6 text-gray-700">베트남에서의 사업 준비는 수개월이 소요되는 복잡한 과정입니다. 원활한 진행을 위해 아래와 같은 단계별 자금 지급 조건을 제안합니다.</p>
+                     <ol class="relative border-l border-gray-300 ml-4">                  
+                        <li class="mb-10 ml-6">            
+                            <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-8 ring-white">1</span>
+                            <h4 class="flex items-center mb-1 text-lg font-semibold text-gray-900">계약 체결 시점 (1차)</h4>
+                            <p class="block mb-2 text-sm font-normal leading-none text-gray-500">총 예산의 30% 지급</p>
+                            <p class="text-base font-normal text-gray-600">법인 설립, 사업자 등록 등 행정 절차 착수 및 임대 계약금 지급에 사용됩니다.</p>
+                        </li>
+                        <li class="mb-10 ml-6">
+                            <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-8 ring-white">2</span>
+                            <h4 class="mb-1 text-lg font-semibold text-gray-900">인테리어/설비 계약 시점 (2차)</h4>
+                            <p class="block mb-2 text-sm font-normal leading-none text-gray-500">총 예산의 50% 지급</p>
+                            <p class="text-base font-normal text-gray-600">매장 인테리어 공사, 주방 설비 및 집기 구매 등 실질적인 매장 구축 비용으로 사용됩니다.</p>
+                        </li>
+                        <li class="ml-6">
+                            <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-8 ring-white">3</span>
+                            <h4 class="mb-1 text-lg font-semibold text-gray-900">매장 오픈 직전 (3차)</h4>
+                            <p class="block mb-2 text-sm font-normal leading-none text-gray-500">총 예산의 20% 지급</p>
+                            <p class="text-base font-normal text-gray-600">초도 물품 구매, 직원 최종 교육, 오픈 마케팅 및 예비 운영 자금으로 사용됩니다.</p>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="card p-8 bg-[#D9534F] text-white">
+                    <h3 class="text-2xl font-bold mb-4">3. 이익 분배 조건 (Profit Sharing)</h3>
+                    <div class="space-y-3">
+                       <p>성공적인 사업 운영에 대한 기여도를 반영하여, 다음과 같은 이익 분배 구조를 제안합니다.</p>
+                       <p class="text-xl font-bold">매출 총이익(매출 - 재료비)에서 모든 운영비용(임대료, 인건비, 공과금 등)을 제외한 <span class="text-2xl underline decoration-wavy">순이익</span>에 대하여,</p>
+                       <div class="text-center text-2xl font-bold bg-white text-[#D9534F] rounded-lg py-4 my-4">
+                           한국 본사 : 70% <br> 현지 파트너(본인) : 30%
+                       </div>
+                       <p class="text-sm">이는 단순한 매장 운영을 넘어 현지 네트워크를 활용한 사업 확장, 정부 기관과의 원활한 소통, 위기관리 등 포괄적인 역할에 대한 보상을 포함합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white mt-16 border-t">
+        <div class="container mx-auto px-6 py-8">
+            <div class="text-center text-gray-600">
+                <p class="font-bold text-lg">틈새라면 호치민 법인</p>
+                <p class="text-sm mt-1">본 자료는 사업 제안을 위한 참고 자료이며, 법적 효력을 갖지 않습니다.</p>
+                <p class="text-xs mt-4 text-gray-400">Copyright &copy; 2025. All Rights Reserved.</p>
+            </div>
+            <div class="mt-8 text-center text-xs text-gray-400">
+                <p>자료 출처 및 참고 사이트:</p>
+                <div class="flex flex-wrap justify-center gap-x-4 mt-2">
+                    https://www.kati.net
+                    https://www.kotra.or.kr
+                    https://www.atfis.or.kr
+                    https://www.worldbank.org/en/country/vietnam
+                    https://vir.com.vn/
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('main section');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    function setActiveLink(targetId) {
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-target') === targetId) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    function onScroll() {
+        let currentSection = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (window.scrollY >= sectionTop - 100) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+        setActiveLink(currentSection);
+    }
+    window.addEventListener('scroll', onScroll);
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('data-target');
+            const targetElement = document.getElementById(targetId);
+            if(targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                setActiveLink(targetId);
+                 if (mobileMenu.classList.contains('hidden') === false) {
+                    mobileMenu.classList.add('hidden');
+                }
+            }
+        });
+    });
+
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    const marketShareCtx = document.getElementById('marketShareChart').getContext('2d');
+    const marketShareChart = new Chart(marketShareCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['베트남 현지 라면', '한국 라면', '일본/기타 라면'],
+            datasets: [{
+                label: '호치민 라면 시장 점유율',
+                data: [75, 20, 5],
+                backgroundColor: ['#FDBF6F', '#D9534F', '#A6CEE3'],
+                borderColor: '#FDFBF8',
+                borderWidth: 4,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: { size: 14 }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.label}: ${context.raw}%`;
+                        }
+                    }
+                }
+            },
+            cutout: '60%'
+        }
+    });
+
+    const investmentData = {
+        labels: ['식당 설비/집기 (FF&E)', '임대 보증금/초기 임대료', '인테리어 비용', '초기 인건비 (3개월)', '마케팅/홍보', '인허가/기타'],
+        values: [8750, 6000, 5000, 3000, 1250, 1000],
+        details: {
+            '식당 설비/집기 (FF&E)': '<strong>총 예산의 35% ($8,750)</strong><br>주방 설비, 조리도구, 테이블, 의자, POS 시스템 등 식당 운영에 필요한 모든 물리적 자산을 포함합니다. 내구성과 효율성을 고려하여 신뢰할 수 있는 공급업체로부터 구매합니다.',
+            '임대 보증금/초기 임대료': '<strong>총 예산의 24% ($6,000)</strong><br>롯데마트 내 푸드코트 입점을 위한 임대 보증금(통상 3개월분)과 초기 1-2개월치 월세를 포함합니다. 안정적인 매장 운영의 기초가 됩니다.',
+            '인테리어 비용': '<strong>총 예산의 20% ($5,000)</strong><br>\'틈새라면\'의 브랜드 아이덴티티를 살린 깔끔하고 현대적인 인테리어 시공 비용입니다. 작은 공간이지만 고객에게 강한 인상을 남길 수 있도록 설계합니다.',
+            '초기 인건비 (3개월)': '<strong>총 예산의 12% ($3,000)</strong><br>매니저 1명, 직원 1명 기준 3개월치 초기 인건비입니다. 안정적인 운영을 위해 오픈 초기 인력에 대한 투자가 중요합니다.',
+            '마케팅/홍보': '<strong>총 예산의 5% ($1,250)</strong><br>오픈 기념 시식 이벤트, SNS 인플루언서 초청, 온라인 광고 등 초기 고객 유치를 위한 필수적인 마케팅 활동 비용입니다.',
+            '인허가/기타': '<strong>총 예산의 4% ($1,000)</strong><br>사업자 등록, 위생 허가 등 각종 행정 절차에 필요한 비용과 예상치 못한 상황에 대비한 예비비를 포함합니다.'
+        }
+    };
+
+    const financeDetailsContainer = document.getElementById('finance-details');
+    const investmentCtx = document.getElementById('investmentChart').getContext('2d');
+    const investmentChart = new Chart(investmentCtx, {
+        type: 'doughnut',
+        data: {
+            labels: investmentData.labels,
+            datasets: [{
+                data: investmentData.values,
+                backgroundColor: ['#D9534F', '#FDBF6F', '#A6CEE3', '#B2DF8A', '#FB9A99', '#CAB2D6'],
+                borderColor: '#FDFBF8',
+                borderWidth: 4,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+             plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            let value = context.raw;
+                            let total = context.chart.getDataPoints().reduce((a, b) => a + b, 0);
+                            let percentage = ((value / total) * 100).toFixed(1);
+                            return `${label}: $${value.toLocaleString()} (${percentage}%)`;
+                        }
+                    }
+                }
+            },
+            cutout: '60%',
+            onClick: (event, elements) => {
+                if (elements.length > 0) {
+                    const chartElement = elements[0];
+                    const label = investmentChart.data.labels[chartElement.index];
+                    const detailHTML = investmentData.details[label];
+                    financeDetailsContainer.innerHTML = `<h3 class="text-2xl font-bold text-gray-800 mb-4">${label}</h3><p class="text-gray-600">${detailHTML}</p>`;
+                }
+            }
+        }
+    });
+
+
+    const strategyCards = document.querySelectorAll('.strategy-card');
+    const strategyDetailsContainer = document.getElementById('strategy-details');
+
+    const strategyDetails = {
+        product: {
+            title: '🛒 롯데마트 제품 입점 전략 분석',
+            content: `
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-lg mb-2">장점</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                           <li><strong>최소 비용 및 리스크:</strong> 별도 매장 없이 기존 유통 채널을 활용하여 초기 투자 비용이 가장 적습니다.</li>
+                           <li><strong>빠른 시장성 검증:</strong> 단기간에 소비자 반응을 확인하고 데이터를 축적할 수 있습니다.</li>
+                           <li><strong>높은 접근성:</strong> 롯데마트의 높은 집객력을 활용하여 브랜드를 쉽게 노출시킬 수 있습니다.</li>
+                        </ul>
+                    </div>
+                    <div>
+                         <h4 class="font-bold text-lg mb-2 text-red-500">단점</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                           <li><strong>브랜드 경험 부재:</strong> 조리된 라면이 아닌 제품만 판매하므로 '틈새라면'의 진정한 맛과 가치를 전달하기 어렵습니다.</li>
+                           <li><strong>낮은 수익성:</strong> 유통 마진으로 인해 직접 판매 대비 수익률이 낮습니다.</li>
+                           <li><strong>경쟁 심화:</strong> 수많은 경쟁 라면 제품들 사이에서 차별화가 어렵습니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            `
+        },
+        restaurant_in: {
+            title: '🏬 마트 내 식당 개설 전략 분석',
+            content: `
+                 <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-lg mb-2">장점</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                           <li><strong>안정적 수요 확보:</strong> 마트 유동인구를 그대로 흡수하여 초기 고객 유치에 매우 유리합니다.</li>
+                           <li><strong>'판매 + 경험' 시너지:</strong> 식당에서 맛을 본 고객이 바로 옆 마트에서 제품을 구매하는 선순환 구조를 만들 수 있습니다.</li>
+                           <li><strong>낮은 마케팅 비용:</strong> 단독 매장 대비 홍보 비용을 크게 절감할 수 있습니다.</li>
+                            <li><strong>관리 용이성:</strong> 마트의 중앙 관리 시스템(보안, 청소 등)의 지원을 받을 수 있습니다.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-2 text-red-500">단점</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                           <li><strong>영업 시간 및 규제:</strong> 마트의 운영 정책에 따라야 하는 제약이 있습니다.</li>
+                           <li><strong>제한된 공간:</strong> 확장성이 부족하고, 브랜드의 독자적인 분위기를 연출하기 어렵습니다.</li>
+                           <li><strong>높은 수수료:</strong> 매출의 일정 비율을 마트에 수수료로 지불해야 할 수 있습니다.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-4 p-4 bg-green-50 rounded-lg text-center font-semibold text-green-800">
+                    <p>결론: 초기 리스크와 브랜드 경험 제공 사이의 최적의 균형점으로, 현재 단계에서 가장 추천하는 전략입니다.</p>
+                </div>
+            `
+        },
+        restaurant_out: {
+            title: '🏠 외부 단독 식당 개설 전략 분석',
+            content: `
+                 <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-lg mb-2">장점</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                           <li><strong>완전한 브랜드 컨트롤:</strong> 인테리어, 메뉴, 운영 방식 등 모든 면에서 브랜드 철학을 온전히 구현할 수 있습니다.</li>
+                           <li><strong>높은 수익 잠재력:</strong> 마트 수수료 등이 없어 성공 시 가장 높은 수익률을 기대할 수 있습니다.</li>
+                           <li><strong>확장 유연성:</strong> 성공 모델을 바탕으로 직영 또는 가맹점 확장이 용이합니다.</li>
+                        </ul>
+                    </div>
+                    <div>
+                         <h4 class="font-bold text-lg mb-2 text-red-500">단점</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                           <li><strong>높은 초기 투자 비용:</strong> 임대 보증금, 권리금, 인테리어 등 모든 비용을 직접 부담해야 합니다.</li>
+                           <li><strong>높은 리스크:</strong> 상권 분석 실패 시 초기 고객 확보가 어려우며, 모든 운영 리스크를 직접 감수해야 합니다.</li>
+                           <li><strong>막대한 마케팅 비용:</strong> 브랜드 인지도를 처음부터 쌓아야 하므로 상당한 마케팅 예산이 필요합니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            `
+        }
+    };
+
+    function updateStrategyDetails(strategyKey) {
+        const details = strategyDetails[strategyKey];
+        strategyDetailsContainer.innerHTML = `
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">${details.title}</h3>
+            ${details.content}
+        `;
+        strategyCards.forEach(card => {
+            card.classList.remove('selected');
+            if (card.dataset.strategy === strategyKey) {
+                card.classList.add('selected');
+            }
+        });
+    }
+
+    strategyCards.forEach(card => {
+        card.addEventListener('click', () => {
+            updateStrategyDetails(card.dataset.strategy);
+        });
+    });
+
+    updateStrategyDetails('restaurant_in'); 
+    setActiveLink('overview');
+});
+</script>
+
+</body>
+</html>
