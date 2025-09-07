@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>틈새라면 호치민 마케팅 전략 인포그래픽</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful (Adapted for Spicy Theme) -->
+    <!-- Narrative & Structure Plan: The infographic tells a story in four acts. 1) The Target: It first establishes a clear picture of the target audience (Ho Chi Minh's Gen Z/Millennials) using a persona card. 2) The Overview: It presents the three proposed strategies at a high level, using a comparative bar chart for a quick, data-driven assessment of their strengths. 3) The Playbook: It then dives deep into each of the three strategies with dedicated sections, using visual diagrams (flowcharts, maps) built with HTML/CSS to explain the 'how'. 4) The Impact: It concludes by summarizing the expected outcome with a donut chart, reinforcing the plan's effectiveness. This logical flow guides the stakeholder from understanding the 'who' to the 'what', 'how', and finally the 'why'. -->
+    <!-- Visualization Choices: 1. Target Persona: HTML/CSS card with Unicode icons. (Goal: Inform, Justification: Quickly conveys key audience traits without graphics). 2. Strategy Comparison: Bar Chart (Chart.js). (Goal: Compare, Justification: Best for direct comparison of abstract metrics like cost-effectiveness and impact across multiple options). 3. SNS Viral Flow: HTML/CSS Diagram. (Goal: Organize, Justification: Clearly shows the process steps for the viral campaign). 4. Pop-up Locations: Stylized HTML/CSS Map. (Goal: Inform, Justification: Visually suggests geographic targets without complex map data). 5. K-Content Web: HTML/CSS Diagram. (Goal: Relationships, Justification: Shows the interconnected nature of the collaboration strategy). 6. Marketing Impact: Donut Chart (Chart.js). (Goal: Inform, Justification: Excellent for showing the proportional breakdown of expected outcomes). -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #F8F9FA;
+            color: #343A40;
+        }
+        .section-heading {
+            font-weight: 900;
+            color: #E63946;
+            letter-spacing: -1px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid #E9ECEF;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .strategy-flow-item {
+            position: relative;
+            padding: 1rem;
+            background: #FFF;
+            border-radius: 0.75rem;
+            border: 2px solid #E9ECEF;
+            text-align: center;
+        }
+        .strategy-flow-item:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            top: 50%;
+            right: -24px;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #E63946;
+            font-weight: 700;
+        }
+        @media (max-width: 767px) {
+            .strategy-flow-item:not(:last-child)::after {
+                content: '↓';
+                top: 100%;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto px-4 py-12 md:py-20">
+
+        <header class="text-center mb-16 md:mb-24">
+            <h1 class="text-4xl md:text-6xl font-black text-gray-800 leading-tight">
+                <span class="text-[#E63946]">틈새라면</span> 호치민 시장 공략
+            </h1>
+            <p class="mt-4 text-lg md:text-2xl text-gray-600 font-medium">저비용 고효율 마케팅 전략 인포그래픽</p>
+        </header>
+
+        <section id="target-audience" class="mb-16 md:mb-24">
+            <h2 class="section-heading text-3xl md:text-4xl text-center mb-10">1. 우리의 타겟: 호치민의 심장, Z세대</h2>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">
+                우리의 성공은 이들에게 달려있습니다. 호치민의 젊은 세대는 단순한 소비자를 넘어, 트렌드를 만들고 확산시키는 강력한 미디어입니다. '틈새라면'의 매운맛은 이들의 도전 정신을 자극할 완벽한 콘텐츠입니다.
+            </p>
+            <div class="card max-w-2xl mx-auto p-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div class="flex flex-col items-center">
+                    <span class="text-5xl mb-3">📱</span>
+                    <h3 class="text-xl font-bold text-gray-800">SNS 네이티브</h3>
+                    <p class="text-gray-500 mt-1">틱톡, 인스타그램으로 맛집을 탐험하고 일상을 공유합니다.</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-5xl mb-3">🔥</span>
+                    <h3 class="text-xl font-bold text-gray-800">챌린지 선호</h3>
+                    <p class="text-gray-500 mt-1">매운맛, 신메뉴 등 새로운 경험과 도전을 즐깁니다.</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-5xl mb-3">🇰🇷</span>
+                    <h3 class="text-xl font-bold text-gray-800">K-Culture 팬덤</h3>
+                    <p class="text-gray-500 mt-1">K-푸드를 단순한 음식이 아닌 하나의 문화로 소비합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="strategy-overview" class="mb-16 md:mb-24">
+            <h2 class="section-heading text-3xl md:text-4xl text-center mb-10">2. 게임 플랜: 3가지 핵심 전략 비교</h2>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">
+                대규모 자본 없이 시장에 침투하기 위해, 타겟 고객의 특성을 활용한 세 가지 비용 효율적인 전략을 제안합니다. 아래 차트는 각 전략의 강점을 시각적으로 비교하여 최적의 조합을 찾을 수 있도록 돕습니다.
+            </p>
+            <div class="card p-6 md:p-8">
+                <div class="chart-container">
+                    <canvas id="strategyComparisonChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="strategy-playbook" class="mb-16 md:mb-24">
+            <h2 class="section-heading text-3xl md:text-4xl text-center mb-16">3. 실행 계획: 어떻게 '틈새'를 만들 것인가?</h2>
+            
+            <div class="card p-8 md:p-12 mb-12">
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">전략 1: 바이럴을 일으켜라 <span class="text-[#E63946]">(SNS 챌린지)</span></h3>
+                <p class="text-gray-600 mb-8">고객이 직접 마케터가 되게 만듭니다. '매운맛 챌린지'는 최소 비용으로 브랜드 인지도를 폭발시킬 가장 강력한 무기입니다.</p>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4">
+                    <div class="strategy-flow-item"><strong>런칭</strong><p class="text-sm text-gray-500">인플루언서 초청 시식회</p></div>
+                    <div class="strategy-flow-item"><strong>확산</strong><p class="text-sm text-gray-500">#매운맛챌린지 해시태그 생성</p></div>
+                    <div class="strategy-flow-item"><strong>참여</strong><p class="text-sm text-gray-500">고객 참여형 콘텐츠 (UGC) 유도</p></div>
+                    <div class="strategy-flow-item"><strong>지배</strong><p class="text-sm text-gray-500">'호치민 매운맛' 대표주자 등극</p></div>
+                </div>
+            </div>
+
+            <div class="card p-8 md:p-12 mb-12">
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">전략 2: 거리로 나가라 <span class="text-[#1D3557]">(게릴라 팝업)</span></h3>
+                <p class="text-gray-600 mb-8">정식 매장 오픈 전, '맛'으로 먼저 승부합니다. 직접적인 시식 경험은 가장 확실한 영업 전략입니다.</p>
+                <div class="bg-gray-100 rounded-lg p-6 text-center">
+                    <h4 class="font-bold text-lg mb-4">주요 타겟 지역</h4>
+                    <div class="flex flex-wrap justify-center gap-4 text-sm font-medium">
+                        <span class="bg-[#A8DADC] text-[#1D3557] py-2 px-4 rounded-full">🎓 대학가 (학생 유동인구)</span>
+                        <span class="bg-[#A8DADC] text-[#1D3557] py-2 px-4 rounded-full">🛍️ 1군 쇼핑몰 (젊은 직장인)</span>
+                        <span class="bg-[#A8DADC] text-[#1D3557] py-2 px-4 rounded-full">🌙 야시장 (관광객, 현지인)</span>
+                    </div>
+                    <p class="mt-4 text-gray-600">"Try and Buy" 전략: 무료 시식으로 잠재 고객을 확보하고, 오픈 매장 할인 쿠폰으로 방문을 유도합니다.</p>
+                </div>
+            </div>
+
+            <div class="card p-8 md:p-12">
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">전략 3: 물결에 올라타라 <span class="text-[#457B9D]">(K-콘텐츠 협업)</span></h3>
+                <p class="text-gray-600 mb-8">이미 형성된 K-Culture 팬덤의 강력한 에너지를 활용합니다. 틈새라면을 'K-푸드 트렌드'의 중심으로 포지셔닝합니다.</p>
+                <div class="text-center p-6">
+                    <div class="inline-block bg-[#E63946] text-white font-bold py-3 px-6 rounded-lg text-xl mb-4">틈새라면</div>
+                    <div class="flex justify-center items-center gap-4 md:gap-8">
+                         <div class="w-px h-12 bg-gray-300 hidden md:block"></div>
+                         <div class="h-px w-8 bg-gray-300 md:hidden"></div>
+                         <div class="flex flex-col md:flex-row gap-4 md:gap-8">
+                            <span class="font-semibold text-[#457B9D]">🎤 K-Pop 이벤트 후원</span>
+                            <span class="font-semibold text-[#457B9D]">🎬 웹드라마 간접광고(PPL)</span>
+                            <span class="font-semibold text-[#457B9D]">🇻🇳 현지화 레시피 개발</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="expected-impact">
+            <h2 class="section-heading text-3xl md:text-4xl text-center mb-10">4. 기대 효과: 우리의 목표</h2>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">
+                이 세 가지 전략은 상호 보완적으로 작용하여, 단순한 식당 오픈을 넘어 호치민 시장에 '틈새라면'이라는 새로운 카테고리를 만드는 것을 목표로 합니다.
+            </p>
+            <div class="card p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="chart-container">
+                    <canvas id="impactAllocationChart"></canvas>
+                </div>
+                <div class="text-left">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">마케팅 임팩트 분배</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="w-4 h-4 rounded-full bg-[#E63946] mt-1.5 mr-3 shrink-0"></span>
+                            <div><strong class="text-gray-700">브랜드 인지도 (50%):</strong> '호치민=매운 라면=틈새라면' 공식을 시장에 각인시킵니다.</div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-4 h-4 rounded-full bg-[#457B9D] mt-1.5 mr-3 shrink-0"></span>
+                            <div><strong class="text-gray-700">고객 참여 유도 (30%):</strong> 고객이 직접 참여하고 콘텐츠를 생산하는 팬덤을 구축합니다.</div>
+                        </li>
+                         <li class="flex items-start">
+                            <span class="w-4 h-4 rounded-full bg-[#A8DADC] mt-1.5 mr-3 shrink-0"></span>
+                            <div><strong class="text-gray-700">초기 매출 확보 (20%):</strong> 팝업, 쿠폰 등을 통해 안정적인 초기 고객층을 확보합니다.</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="text-center mt-16 md:mt-24 text-gray-500 text-sm">
+             <p>본 자료는 '틈새라면' 호치민 진출 성공을 위한 마케팅 전략 제안서입니다.</p>
+             <p class="mt-4 text-xs text-gray-400">자료 출처: statista.com, kantarsg.com, vir.com.vn, agrifood.asia, marketingtochina.com</p>
+        </footer>
+
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const wrapLabel = (label) => {
+        const maxLength = 16;
+        if (label.length <= maxLength) return label;
+        
+        const words = label.split(' ');
+        let lines = [];
+        let currentLine = '';
+
+        words.forEach(word => {
+            if ((currentLine + ' ' + word).trim().length > maxLength) {
+                lines.push(currentLine.trim());
+                currentLine = word;
+            } else {
+                currentLine = (currentLine + ' ' + word).trim();
+            }
+        });
+        lines.push(currentLine.trim());
+        return lines;
+    };
+    
+    const tooltipTitleCallback = (tooltipItems) => {
+        const item = tooltipItems[0];
+        let label = item.chart.data.labels[item.dataIndex];
+        return Array.isArray(label) ? label.join(' ') : label;
+    };
+
+    const strategyLabels = ['SNS 바이럴 챌린지', '게릴라 팝업 스토어', 'K-콘텐츠 연계 협업'];
+    const wrappedStrategyLabels = strategyLabels.map(wrapLabel);
+
+    const ctxStrategy = document.getElementById('strategyComparisonChart').getContext('2d');
+    new Chart(ctxStrategy, {
+        type: 'bar',
+        data: {
+            labels: wrappedStrategyLabels,
+            datasets: [
+                {
+                    label: '비용 효율성',
+                    data: [90, 75, 70],
+                    backgroundColor: 'rgba(230, 57, 70, 0.7)',
+                    borderColor: 'rgba(230, 57, 70, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: '브랜드 임팩트',
+                    data: [85, 60, 80],
+                    backgroundColor: 'rgba(69, 123, 157, 0.7)',
+                    borderColor: 'rgba(69, 123, 157, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: '직접 고객경험',
+                    data: [70, 95, 50],
+                    backgroundColor: 'rgba(168, 218, 220, 0.7)',
+                    borderColor: 'rgba(168, 218, 220, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%'
+                        }
+                    }
+                },
+                y: {
+                    ticks: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            }
+        }
+    });
+
+    const ctxImpact = document.getElementById('impactAllocationChart').getContext('2d');
+    new Chart(ctxImpact, {
+        type: 'doughnut',
+        data: {
+            labels: ['브랜드 인지도 구축', '적극적 고객 참여 유도', ['초기 매출 및', '잠재고객 확보']],
+            datasets: [{
+                data: [50, 30, 20],
+                backgroundColor: [
+                    '#E63946',
+                    '#457B9D',
+                    '#A8DADC'
+                ],
+                borderColor: '#F8F9FA',
+                borderWidth: 5,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                   display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback,
+                        label: function(context) {
+                            let label = context.label;
+                            if (Array.isArray(label)) {
+                                label = label.join(' ');
+                            }
+                            return `${label}: ${context.raw}%`;
+                        }
+                    }
+                }
+            },
+            cutout: '60%'
+        }
+    });
+});
+</script>
+</body>
+</html>
